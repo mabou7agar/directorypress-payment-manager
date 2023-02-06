@@ -101,7 +101,7 @@
 				<div class="row clearfix">
 					<div class="col-md-12"><label><?php _e('Package Features', 'directorypress-payment-manager'); ?></label></div>
 					<div class="col-md-12"><p><?php _e("Allow Extra features for this package", 'directorypress-payment-manager'); ?></p></div>
-					<div class="col-md-12">
+                    <div class="col-md-12">
 						<div><label><?php _e('Enable BumpUp/RaiseUp ', 'directorypress-payment-manager'); ?></label></div>
 						<label class="switch">
 							<input name="can_be_bumpup" type="checkbox" value="1" id="can_be_bumpup" <?php checked($item->can_be_bumpup); ?> />
@@ -125,7 +125,27 @@
 
                     <span id="add_fields" class="btn btn-primary" >Add Fields</span>
                    <div id="extra_fields">
-
+<?php
+if(isset($item->extra_meta['label'])) {
+    for ($i=0;$i< Count($item->extra_meta['label']);$i++) {
+        $label = $item->extra_meta['label'][$i] ?? '';
+        $icon = $item->extra_meta['icon'][$i] ?? '';
+        $isEnabled = $item->extra_meta['is_enabled'][$i] ?? 0;
+        ?>
+        <div class="col-md-12 extraData" id="tempDiv">
+            <br>
+            <input name="extra_meta[label][]" type="text" value="<?= $label ?>"  placeholder="label" id="field_label_id_<?= $i ?>" style="width: 30%"  />
+            <input name="extra_meta[icon][]" type="text" placeholder="icon name" value="<?= $icon ?>" id="field_icon_id_<?= $i ?>" style="width: 20%"  />
+            <label class="switch">
+                <input name="extra_meta[is_enabled][]" value="1" type="checkbox" id="field_enabled_id_<?= $i ?>" <?php checked($isEnabled); ?> />
+                <span class="slider"></span>
+            </label>
+            <span class="btn btn-danger remove_field" >X</span>
+        </div>
+    <?php
+    }
+}
+    ?>
                    </div>
 
 				</div>
@@ -207,21 +227,25 @@
 </div>
 <div class="col-md-12 extraData" id="tempDiv" style="display: none">
     <br>
-        <input name="temp_label_name" type="text" value=""  placeholder="label" id="temp_label_id" style="width: 30%"  />
-    <input name="temp_icon_name" type="text" placeholder="icon name" value="" id="temp_icon_id" style="width: 20%"  />
+        <input name="extra_meta[label][]" type="text" value=""  placeholder="label" id="temp_label" style="width: 30%"  />
+    <input name="extra_meta[icon][]" type="text" placeholder="icon name" value="" id="temp_icon" style="width: 20%"  />
         <label class="switch">
-            <input name="temp_name" type="checkbox" value="" id="temp_id" />
+            <input name="extra_meta[is_enabled][]" type="checkbox" id="temp_id" />
             <span class="slider"></span>
         </label>
     <span class="btn btn-danger remove_field" >X</span>
 </div>
 <script>
-    let incremental = 0;
+    var incremental = 0;
+    jQuery('.remove_field').on('click', function (e) {
+        jQuery(this).closest('.extraData').remove();
+    });
     jQuery('#add_fields').on('click', function (e) {
     let cloned = jQuery('#tempDiv').clone();
-    cloned.find('temp_label_id').attr('id', 'field_label_id_' + incremental);
-    cloned.find('temp_id').attr('id', 'field_id_' + incremental);
-    cloned.find('temp_name').attr('name', 'field_name_' + incremental);
+    cloned.find('#temp_label').attr('id', 'field_label_id_' + incremental);
+    cloned.find('#temp_id').attr('id', 'field_id_' + incremental);
+    cloned.find('#temp_name').attr('id', 'field_name_' + incremental);
+    cloned.find('#temp_icon').attr('id', 'temp_icon_' + incremental);
     cloned.attr('id', 'extra_div_' + incremental);
     cloned.css('display', 'block');
     jQuery('#extra_fields').append(cloned);
