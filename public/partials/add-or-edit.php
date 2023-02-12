@@ -50,6 +50,24 @@
 						<?php directorypress_wpml_translation_notification_string(); ?>
 					</div>
 				</div>
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <label><?php _e('Custom Class', 'directorypress-payment-manager'); ?><span class="directorypress-red-asterisk">*</span></label>
+                    </div>
+                    <div class="col-md-12">
+                        <input name="custom_class" type="text" class="regular-text" value="<?php echo esc_attr($item->custom_class); ?>" />
+                        <?php directorypress_wpml_translation_notification_string(); ?>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <label><?php _e('Package Type', 'directorypress-payment-manager'); ?><span class="directorypress-red-asterisk">*</span></label>
+                    </div>
+                    <div class="col-md-12">
+                        <input name="package_type" type="text" class="regular-text" value="<?php echo esc_attr($item->package_type); ?>" />
+                        <?php directorypress_wpml_translation_notification_string(); ?>
+                    </div>
+                </div>
 			</div>
 			<div class="tab-pane fade" id="expiry-<?php echo $itab_id ?>">
 				<div class="row clearfix">

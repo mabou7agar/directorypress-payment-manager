@@ -141,6 +141,8 @@ class directorypress_packages_manager {
 			$validation->set_rules('selected_locations', __('Assigned Locations', 'directorypress-payment-manager'));
 			$validation->set_rules('fields', __('Assigned content fields', 'directorypress-payment-manager'));
 			$validation->set_rules('extra_meta', __('Assigned content extras', 'directorypress-payment-manager'));
+			$validation->set_rules('custom_class', __('Custom Class To Edit Design', 'directorypress-payment-manager'));
+			$validation->set_rules('package_type', __('Package Type', 'directorypress-payment-manager'));
 			$validation->set_rules('location_number_allowed', __('Locations number', 'directorypress-payment-manager'), 'is_natural');
 			apply_filters('directorypress_package_validation', $validation);
 		
